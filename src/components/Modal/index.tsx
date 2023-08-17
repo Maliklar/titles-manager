@@ -9,14 +9,14 @@ const Modal = ({ open, title, onClose, children }: ModalProps) => {
     <CSSTransition timeout={300} in={open} unmountOnExit mountOnEnter>
       {(state) => (
         <div
-          className={`${styles.overlay} fixed bg-black bg-opacity-25 backdrop-blur-sm flex justify-center items-center inset-0`}
+          className={`${styles.overlay} fixed bg-black bg-opacity-25 backdrop-blur-sm flex justify-center items-center inset-0 z-[100]`}
           onClick={onClose}
           data-state={state}
         >
           <dialog
             //   if the state is exited the component will be removed from the DOM
             open={state !== "exited"}
-            className={`${styles.modal} container flex rounded-md max-w-md bg-gray-900 text-white p-3 divide-y gap-2  flex-col shadow-lg`}
+            className={`${styles.modal} container flex rounded-md max-w-md bg-gray-900 text-white p-3 divide-y gap-2  flex-col shadow-lg sm:h-auto h-screen`}
             data-state={state}
             onClick={(e) => {
               e.stopPropagation();

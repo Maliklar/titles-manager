@@ -13,26 +13,26 @@ async function add(title: string, isActive: boolean) {
       isActive,
     });
 
-    return false;
-  } catch (error) {
     return true;
+  } catch (error) {
+    return false;
   }
 }
 
 async function remove(id: number) {
   try {
     await request.delete(`${ENDPOINT}/${id}`);
-    return false;
-  } catch (error) {
     return true;
+  } catch (error) {
+    return false;
   }
 }
 async function edit(id: number, title: string, isActive: boolean) {
   try {
     await request.patch(ENDPOINT, { id, title, isActive });
-    return false;
-  } catch (error) {
     return true;
+  } catch (error) {
+    return false;
   }
 }
 

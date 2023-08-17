@@ -7,7 +7,11 @@ async function getItems() {
   try {
     const prisma = new PrismaClient();
     await prisma.$connect();
-    const titles = await prisma.titles.findMany();
+    const titles = await prisma.titles.findMany({
+      where: {
+        isDeleted: false,
+      },
+    });
     await prisma.$disconnect();
     return titles;
   } catch (error) {
@@ -28,12 +32,6 @@ export default async function Home() {
                 <h2 className="text-xl font-bold">Items Table</h2>
                 <AddItemButton />
               </div>
-              <p className="mt-1 text-sm font-normal text-gray-500 dark:text-gray-400">
-                Lorem ipsum dolor sit amet, consectetur adipisicing elit.
-                Placeat omnis reprehenderit molestias recusandae veniam
-                similique laudantium natus iusto, nobis error possimus ratione
-                sequi ipsa quaerat quae dicta perferendis?
-              </p>
             </caption>
             <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
               <tr>

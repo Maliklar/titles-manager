@@ -23,28 +23,6 @@ export async function GET(request: Request) {
     return response(`Internal Server Error: ${(error as Error).message}`, 500);
   }
 }
-export async function DELETE(request: Request) {
-  const body = await request.json();
-  if (!body.id) return response("Invalid Data", 400);
-  try {
-    const prisma = new PrismaClient();
-    await prisma.$connect();
-
-    await prisma.titles.update({
-      where: {
-        id: body.id,
-      },
-      data: {
-        isDeleted: true,
-      },
-    });
-    await prisma.$disconnect();
-
-    return response("Deleted successfully", 200);
-  } catch (error) {
-    return response(`Internal Server Error: message}`, 500);
-  }
-}
 export async function PATCH(request: Request) {
   const body = await request.json();
   if (!body.id) return response("Invalid Data", 400);

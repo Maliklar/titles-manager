@@ -1,3 +1,4 @@
+"use client";
 import { FeedBack, ItemModalProps, ModalsEnum } from "@/types";
 import { add, edit } from "@/utils/itemsApi";
 import { ChangeEventHandler, FormEvent, useEffect, useState } from "react";
@@ -12,14 +13,15 @@ const ItemModal = ({ itemInfo, type, open, onClose }: ItemModalProps) => {
   const [title, setTitle] = useState(itemInfo.title);
   const [active, setActive] = useState(itemInfo.isActive);
   const [feedback, setFeedBack] = useState<FeedBack>();
-
-  const modalTitle = type === ModalsEnum.AddItem ? "Add New Item" : "Edit Item";
+  const [modalTitle, setModalTitle] = useState<string>();
 
   useEffect(() => {
     // Update the states if the component rerenders
     setTitle(itemInfo.title);
     setActive(itemInfo.isActive);
-  }, [itemInfo]);
+    if (type === undefined) return;
+    setModalTitle(type === ModalsEnum.AddItem ? "Add New Item" : "Edit Item");
+  }, [itemInfo, type]);
 
   const titleChangeHandler: ChangeEventHandler<HTMLInputElement> = (e) =>
     setTitle(e.target.value);
@@ -44,11 +46,9 @@ const ItemModal = ({ itemInfo, type, open, onClose }: ItemModalProps) => {
       else
         setFeedBack({
           error: true,
-          message: "Error editing Item",
+          message: "Error Adding Item",
         });
-      return;
-    }
-    if (type === ModalsEnum.EditItem) {
+    } else if (type === ModalsEnum.EditItem) {
       const result = await edit(itemInfo.id, title, active);
       if (result)
         setFeedBack({
@@ -60,8 +60,8 @@ const ItemModal = ({ itemInfo, type, open, onClose }: ItemModalProps) => {
           error: true,
           message: "Error editing Item",
         });
-      return;
     }
+    onClose();
   };
 
   return (
@@ -122,6 +122,7 @@ const ItemModal = ({ itemInfo, type, open, onClose }: ItemModalProps) => {
           <button
             type="button"
             className="text-blue-500  text-sm p-1 px-3 rounded-md uppercase hover:bg-gray-950  transition-colors"
+            onClick={onClose}
           >
             Cancel
           </button>

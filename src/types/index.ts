@@ -11,7 +11,7 @@ export type ItemInfo = {
 
 // Components types
 export type ModalProps = {
-  title: string;
+  title?: string;
   onClose: VoidFunction;
   open: boolean;
   children: ReactNode;

@@ -3,6 +3,7 @@
 import ConfirmationModal from "@/components/Modal/ConfirmationModal";
 import ItemModal from "@/components/Modal/ItemModal";
 import { ItemInfo, ModalsEnum } from "@/types";
+import { useRouter } from "next/navigation";
 import { createContext, useState } from "react";
 import { FaPlus } from "react-icons/fa";
 
@@ -28,14 +29,17 @@ const initialItem = {
 const UIContext = ({ children }: Props) => {
   const [modal, setModal] = useState<ModalsEnum>();
   const [itemInfo, setItemInfo] = useState<ItemInfo>(initialItem);
-
+  const { refresh } = useRouter();
   const openModal = (type: ModalsEnum, info?: ItemInfo) => {
     if (info) setItemInfo(info);
     else setItemInfo(initialItem);
     setModal(type);
   };
 
-  const closeModal = () => setModal(undefined);
+  const closeModal = () => {
+    setModal(undefined);
+    refresh();
+  };
   const addItemClickHandler = () => openModal(ModalsEnum.AddItem);
 
   return (
@@ -66,7 +70,7 @@ const UIContext = ({ children }: Props) => {
       <ConfirmationModal
         open={modal === ModalsEnum.ConfirmDelete}
         onClose={closeModal}
-        titleInfo={titleInfo}
+        itemInfo={itemInfo}
       />
     </Context.Provider>
   );

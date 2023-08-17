@@ -14,11 +14,12 @@ const ConfirmationModal = ({ itemInfo, open, onClose }: Props) => {
         message: "Item deleted successfully",
         error: false,
       });
+      onClose();
       return;
     }
     setFeedback({
       message: "Couldn't delete the item",
-      error: false,
+      error: true,
     });
   };
 
