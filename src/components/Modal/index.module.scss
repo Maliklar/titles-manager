@@ -1,0 +1,36 @@
+.overlay {
+  transition: transform 0.3s, opacity 0.3s;
+
+  &[data-state="entering"] {
+    opacity: 0;
+  }
+  &[data-state="entered"] {
+    opacity: 1;
+  }
+  &[data-state="exiting"] {
+    opacity: 0;
+  }
+  &[data-state="exited"] {
+    opacity: 0;
+  }
+
+  .modal {
+    transition: transform 0.3s, opacity 0.3s;
+    &[data-state="entering"] {
+      opacity: 0;
+      transform: translateY(-30%);
+    }
+    &[data-state="entered"] {
+      opacity: 1;
+      transform: translateY(0%);
+    }
+    &[data-state="exiting"] {
+      opacity: 0;
+      transform: translateY(-30%);
+    }
+    &[data-state="exited"] {
+      opacity: 0;
+      transform: translateY(-30%);
+    }
+  }
+}
