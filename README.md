@@ -7,6 +7,8 @@
 
 ## Running Project Locally Instructions
 
+### First you need to checkout to the development branch
+
 1. Install NPM packages Run
 
 ```bash
