@@ -16,7 +16,7 @@ const Modal = ({ open, title, onClose, children }: ModalProps) => {
           <dialog
             //   if the state is exited the component will be removed from the DOM
             open={state !== "exited"}
-            className={`${styles.modal} container flex rounded-md max-w-md bg-gray-900 text-white p-3 divide-y gap-2  flex-col shadow-lg sm:h-auto h-screen`}
+            className={`${styles.modal} container flex rounded-md max-w-lg bg-gray-900 text-white p-3 divide-y gap-2  flex-col shadow-lg `}
             data-state={state}
             onClick={(e) => {
               e.stopPropagation();

@@ -11,6 +11,9 @@ async function getItems() {
       where: {
         isDeleted: false,
       },
+      orderBy: {
+        createdAt: "desc",
+      },
     });
     await prisma.$disconnect();
     return titles;
