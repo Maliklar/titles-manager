@@ -22,6 +22,8 @@ const ConfirmationModal = ({ itemInfo, open, onClose }: Props) => {
         message: "Couldn't delete the item",
         error: true,
       });
+      setLoading(false);
+      return;
     }
     setLoading(false);
     setFeedback(undefined);

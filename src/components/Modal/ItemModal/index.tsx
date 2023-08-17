@@ -46,11 +46,14 @@ const ItemModal = ({ itemInfo, type, open, onClose }: ItemModalProps) => {
           error: false,
           message: "Item added successfully",
         });
-      else
+      else {
         setFeedBack({
           error: true,
           message: "Error Adding Item",
         });
+        setLoading(false);
+        return;
+      }
     } else if (type === ModalsEnum.EditItem) {
       const result = await edit(itemInfo.id, title, active);
       if (result)
@@ -58,11 +61,14 @@ const ItemModal = ({ itemInfo, type, open, onClose }: ItemModalProps) => {
           error: false,
           message: "Item Updated successfully",
         });
-      else
+      else {
         setFeedBack({
           error: true,
           message: "Error editing Item",
         });
+        setLoading(false);
+        return;
+      }
     }
     setLoading(false);
     onClose();
